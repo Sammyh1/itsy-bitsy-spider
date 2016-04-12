@@ -24,7 +24,7 @@ def Main():
     iterator = sort_of_link.finditer(str(page_of_google_links))
     final_list = []
     for index, match in enumerate(iterator):
-        print("Checking site number: " + str(index + 1) + ", " + match.group(1))
+        print("Checking site number: " + str(index + 1) + ', ' + match.group(1))
         try:
             site_to_be_checked = requests.get(match.group(1)).content
 
