@@ -9,13 +9,14 @@ def create_google_url():
     goog_url = "https://www.google.co.uk/search?q="
     while len(search_term) > 1:
         goog_url += (search_term.pop(0) + "+")
-    goog_url += (search_term[0] + "&num=%d" %(int(num)))
+    goog_url += (search_term[0] + "&num=%d" % (int(num)))
     return goog_url
 
 
 def Main():
     goog_url = create_google_url()
-    headers = {'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2227.1 Safari/537.36'}
+    headers = {
+        'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2227.1 Safari/537.36'}
     page_of_google_links = requests.get(goog_url, headers=headers).content
     print(page_of_google_links)
     sort_of_link = re.compile(r'<h3 class="r"><a href="([^"]*)')
@@ -31,7 +32,6 @@ def Main():
                 final_list.append(match.group(1))
         except:
             print("Whoops, couldn't find that page")
-
 
     print(final_list)
 
