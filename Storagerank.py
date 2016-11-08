@@ -3,6 +3,31 @@ import requests
 
 
 
+exclusion_list = []
+
+locations_to_target = ['london']
+
+def Main():
+    for location in locations_to_target:
+        goog_url = "https://www.google.co.uk/search?q=storage+"
+        goog_url += location
+        result = visit_google_url(goog_url)
+
+
+def visit_google_url(url):
+    headers = {
+        'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2227.1 Safari/537.36'}
+    google_page = requests.get(url, headers=headers).content
+    sort_of_link = re.compile(r'<a class="rllt__action-button _Jrh" href="([^"]*)')
+    iterator = sort_of_link.finditer(str(google_page))
+    for match in iterator:
+        print(str(match.group(1)))
+
+
+'''
+start at <a class="rllt__action-button _Jrh">
+
+end when you hit data-ved=
 
 
 
@@ -10,16 +35,7 @@ import requests
 
 
 
-
-
-
-
-
-
-
-
-
-def create_google_url():
+def old_create_google_url():
     search_term = input("Enter a search term")
     num = input("how many URLs do you want crawled?")
     search_term = search_term.split()
@@ -30,7 +46,7 @@ def create_google_url():
     return goog_url
 
 
-def Main():
+def old_Main():
     goog_url = create_google_url()
     headers = {
         'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2227.1 Safari/537.36'}
@@ -52,5 +68,5 @@ def Main():
 
     print(final_list)
 
-
+'''
 Main()
